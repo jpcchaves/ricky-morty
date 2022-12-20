@@ -1,0 +1,89 @@
+import { useEffect, useState } from 'react';
+import CaractersView from './view';
+import { Caracter } from '../../../types/Caracter';
+import { useAxiosFetch } from '../../../hooks/useAxiosFetch';
+
+const CaractersPage = () => {
+	const [caracters, setCaracters] = useState<Caracter[] | undefined>([]);
+	const [filteredData, setFilteredData] = useState<Caracter[] | undefined>(
+		undefined
+	);
+	const [searchWord, setSearchWord] = useState('');
+
+	const [data, error, isLoading, fetchData] = useAxiosFetch({
+		method: 'GET',
+		url: '/character',
+	});
+
+	useEffect(() => {
+		fetchData();
+	}, []);
+
+	useEffect(() => {
+		if (data) {
+			setCaracters(data);
+		} else {
+			setCaracters([]);
+		}
+	}, [data]);
+
+	useEffect(() => {
+		if (error) {
+			console.log(error);
+		}
+	}, [error]);
+
+	const handleDeleteCaracter = (id: number) => {
+		if (
+			caracters &&
+			window.confirm('Você irá deletar um personagem. Deseja continuar? ') ===
+				true
+		) {
+			const filteredCaracters = caracters.filter((caracter) => {
+				return caracter.id !== id;
+			});
+
+			setCaracters(filteredCaracters);
+		}
+	};
+
+	const handleInputChange = (caracter: string) => {
+		if (caracter === '') {
+			setSearchWord('');
+			setFilteredData(undefined!);
+			return;
+		}
+
+		setSearchWord(caracter);
+
+		const filteredWord = caracters?.filter((caracter) => {
+			return caracter.name.toLowerCase().includes(searchWord.toLowerCase());
+		});
+
+		setFilteredData(filteredWord);
+	};
+
+	const handleCleanupInput = () => {
+		setSearchWord('');
+		setFilteredData(undefined!);
+	};
+
+	const handleChangeTitle = (caracterName: string) => {
+		document.title = `Caracter: ${caracterName}`;
+	};
+
+	return (
+		<CaractersView
+			caracters={caracters}
+			searchWord={searchWord}
+			filteredData={filteredData}
+			handleCleanupInput={handleCleanupInput}
+			handleInputChange={handleInputChange}
+			isLoading={isLoading}
+			handleDeleteCaracter={handleDeleteCaracter}
+			handleChangeTitle={handleChangeTitle}
+		/>
+	);
+};
+
+export default CaractersPage;
