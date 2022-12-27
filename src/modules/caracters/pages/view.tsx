@@ -1,4 +1,5 @@
 import { BiSearchAlt2 } from 'react-icons/bi';
+import { AiOutlineClose } from 'react-icons/ai';
 import LoadingToast from '../../../components/LoadingToast';
 import { Caracter } from '../../../types/Caracter';
 
@@ -41,19 +42,22 @@ const CaractersView = ({
 									value={searchWord}
 									onChange={(e) => handleInputChange(e.target.value)}
 								/>
-								<span
-									className="bg-white text-black px-6 text-2xl font-semibold py-4 rounded-r-md cursor-pointer flex justify-center items-center
+								{searchWord.length ? (
+									<button
+										onClick={handleCleanupInput}
+										className="bg-white px-6 text-lg font-semibold py-4 rounded-md"
+									>
+										<AiOutlineClose />
+									</button>
+								) : (
+									<span
+										className="bg-white text-black px-6 text-2xl font-semibold py-4 rounded-r-md cursor-pointer flex justify-center items-center
 								"
-								>
-									<BiSearchAlt2 />
-								</span>
+									>
+										<BiSearchAlt2 />
+									</span>
+								)}
 							</div>
-							<button
-								onClick={handleCleanupInput}
-								className="bg-white px-6 text-lg font-semibold py-4 rounded-md"
-							>
-								Limpar
-							</button>
 						</div>
 					</div>
 				</div>
