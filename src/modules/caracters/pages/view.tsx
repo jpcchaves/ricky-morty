@@ -3,6 +3,8 @@ import { AiOutlineClose } from 'react-icons/ai';
 import LoadingToast from '../../../components/LoadingToast';
 import { Caracter } from '../../../types/Caracter';
 
+import logo from '../../../assets/logo.png';
+
 interface CaractersViewI {
 	caracters: Caracter[] | undefined;
 	searchWord: string;
@@ -27,9 +29,12 @@ const CaractersView = ({
 	return (
 		<div className="w-full h-full pb-40">
 			<div className="flex flex-col gap-2 w-full mb-8">
-				<label htmlFor="search" className="text-4xl py-6 text-center">
-					Buscar Personagem
-				</label>
+				<div className="w-full flex justify-center items-center">
+					<div className="w-[300px] py-6">
+						<img src={logo} alt="logotipo do rick and morty" />
+					</div>
+				</div>
+
 				<div className="flex flex-row justify-center items-center gap-8 ">
 					<div className="sm:w-[90%] md:w-[70%] lg:w-[60%]">
 						<div className="flex space-x-4">
