@@ -56,7 +56,7 @@ const CaractersView = ({
 								{searchWord.length ? (
 									<button
 										onClick={handleCleanupInput}
-										className="bg-white px-6 text-lg font-semibold py-4 rounded-md"
+										className="bg-white px-6 text-lg font-semibold py-4"
 									>
 										<AiOutlineClose />
 									</button>
