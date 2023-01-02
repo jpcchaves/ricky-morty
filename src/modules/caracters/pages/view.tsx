@@ -17,6 +17,7 @@ interface CaractersViewI {
 	isModalOpen: boolean;
 	singleCaracter: Caracter;
 	handleCloseModal: () => void;
+	loadingCaracter: boolean;
 }
 
 const CaractersView = ({
@@ -31,6 +32,7 @@ const CaractersView = ({
 	isModalOpen,
 	singleCaracter,
 	handleCloseModal,
+	loadingCaracter,
 }: CaractersViewI) => {
 	return (
 		<div className="w-full h-full pb-40">
@@ -133,38 +135,44 @@ const CaractersView = ({
 									<AiOutlineClose className="mr-4 cursor-pointer " size={22} />
 								</div>
 							</div>
-							<div className="flex justify-center items-center flex-col">
-								<h2 className="text-2xl text-center mb-4">
-									{singleCaracter.name}
-								</h2>
-								<div className="m-auto rounded-full mb-4">
-									<img
-										className="object-cover rounded-full"
-										src={singleCaracter.image}
-										alt="foto do personagem"
-									/>
+							{loadingCaracter ? (
+								<div className="flex justify-center items-center">
+									<LoadingToast />
 								</div>
-								<p className="pt-2">
-									<strong>Situação: </strong>
-									{singleCaracter.status === 'Alive' && 'Vivo'}
-									{singleCaracter.status === 'Dead' && 'Morto'}
-									{singleCaracter.status === 'unknown' && 'Só deus sabe'}
-								</p>
-								<p className="pt-2">
-									<strong>Espécie:</strong>{' '}
-									{singleCaracter.species === 'Human' && 'Humano'}
-									{singleCaracter.species === 'Alien' && 'Alienígena'}
-								</p>
-								<p className="pt-2">
-									<strong>Gênero: </strong>
-									{singleCaracter.gender === 'Male' && 'Masculino'}
-									{singleCaracter.gender === 'Female' && 'Feminino'}
-								</p>
-								<p className="py-2">
-									<strong>Localização: </strong>
-									{singleCaracter.location.name}
-								</p>
-							</div>
+							) : (
+								<div className="flex justify-center items-center flex-col">
+									<h2 className="text-2xl text-center mb-4">
+										{singleCaracter.name}
+									</h2>
+									<div className="m-auto rounded-full mb-4">
+										<img
+											className="object-cover rounded-full"
+											src={singleCaracter.image}
+											alt="foto do personagem"
+										/>
+									</div>
+									<p className="pt-2">
+										<strong>Situação: </strong>
+										{singleCaracter.status === 'Alive' && 'Vivo'}
+										{singleCaracter.status === 'Dead' && 'Morto'}
+										{singleCaracter.status === 'unknown' && 'Só deus sabe'}
+									</p>
+									<p className="pt-2">
+										<strong>Espécie:</strong>{' '}
+										{singleCaracter.species === 'Human' && 'Humano'}
+										{singleCaracter.species === 'Alien' && 'Alienígena'}
+									</p>
+									<p className="pt-2">
+										<strong>Gênero: </strong>
+										{singleCaracter.gender === 'Male' && 'Masculino'}
+										{singleCaracter.gender === 'Female' && 'Feminino'}
+									</p>
+									<p className="py-2">
+										<strong>Localização: </strong>
+										{singleCaracter.location.name}
+									</p>
+								</div>
+							)}
 						</div>
 					</div>
 				)}

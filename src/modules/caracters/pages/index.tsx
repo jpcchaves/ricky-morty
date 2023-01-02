@@ -13,6 +13,7 @@ const CaractersPage = () => {
 	const [searchWord, setSearchWord] = useState('');
 	const [isModalOpen, setIsModalOpen] = useState(false);
 	const [singleCaracter, setSingleCaracter] = useState<Caracter>(Object);
+	const [loadingCaracter, setLoadingCaracter] = useState(true);
 
 	const [data, error, isLoading, fetchData] = useAxiosFetch({
 		method: 'GET',
@@ -74,9 +75,14 @@ const CaractersPage = () => {
 
 	const handleChangeTitle = async ({ id, name }: Caracter) => {
 		handleChangeDocTitle(`Caracter: ${name}`);
-		const data = await axios.get(`/character/${id}`);
-		setSingleCaracter(data.data);
-		setIsModalOpen(true);
+		try {
+			setIsModalOpen(true);
+			const data = await axios.get(`/character/${id}`);
+			setLoadingCaracter(false);
+			setSingleCaracter(data.data);
+		} catch (error) {
+			setLoadingCaracter(false);
+		}
 	};
 
 	const handleCloseModal = () => {
@@ -98,6 +104,7 @@ const CaractersPage = () => {
 			isModalOpen={isModalOpen}
 			singleCaracter={singleCaracter}
 			handleCloseModal={handleCloseModal}
+			loadingCaracter={loadingCaracter}
 		/>
 	);
 };
