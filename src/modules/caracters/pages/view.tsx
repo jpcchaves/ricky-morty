@@ -15,7 +15,7 @@ interface CaractersViewI {
 	handleDeleteCaracter: (id: number) => void;
 	handleChangeTitle: (caracter: Caracter) => void;
 	isModalOpen: boolean;
-	singleCaracter: Caracter;
+	singleCaracter: Caracter | null;
 	handleCloseModal: () => void;
 	loadingCaracter: boolean;
 }
@@ -142,34 +142,34 @@ const CaractersView = ({
 							) : (
 								<div className="flex justify-center items-center flex-col">
 									<h2 className="text-2xl text-center mb-4">
-										{singleCaracter.name}
+										{singleCaracter?.name}
 									</h2>
 									<div className="m-auto rounded-full mb-4">
 										<img
 											className="object-cover rounded-full"
-											src={singleCaracter.image}
+											src={singleCaracter?.image}
 											alt="foto do personagem"
 										/>
 									</div>
 									<p className="pt-2">
 										<strong>Situação: </strong>
-										{singleCaracter.status === 'Alive' && 'Vivo'}
-										{singleCaracter.status === 'Dead' && 'Morto'}
-										{singleCaracter.status === 'unknown' && 'Só deus sabe'}
+										{singleCaracter?.status === 'Alive' && 'Vivo'}
+										{singleCaracter?.status === 'Dead' && 'Morto'}
+										{singleCaracter?.status === 'unknown' && 'Só deus sabe'}
 									</p>
 									<p className="pt-2">
 										<strong>Espécie:</strong>{' '}
-										{singleCaracter.species === 'Human' && 'Humano'}
-										{singleCaracter.species === 'Alien' && 'Alienígena'}
+										{singleCaracter?.species === 'Human' && 'Humano'}
+										{singleCaracter?.species === 'Alien' && 'Alienígena'}
 									</p>
 									<p className="pt-2">
 										<strong>Gênero: </strong>
-										{singleCaracter.gender === 'Male' && 'Masculino'}
-										{singleCaracter.gender === 'Female' && 'Feminino'}
+										{singleCaracter?.gender === 'Male' && 'Masculino'}
+										{singleCaracter?.gender === 'Female' && 'Feminino'}
 									</p>
 									<p className="py-2">
 										<strong>Localização: </strong>
-										{singleCaracter.location.name}
+										{singleCaracter?.location.name}
 									</p>
 								</div>
 							)}

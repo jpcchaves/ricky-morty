@@ -12,7 +12,7 @@ const CaractersPage = () => {
 	);
 	const [searchWord, setSearchWord] = useState('');
 	const [isModalOpen, setIsModalOpen] = useState(false);
-	const [singleCaracter, setSingleCaracter] = useState<Caracter>(Object);
+	const [singleCaracter, setSingleCaracter] = useState<Caracter | null>(null);
 	const [loadingCaracter, setLoadingCaracter] = useState(true);
 
 	const [data, error, isLoading, fetchData] = useAxiosFetch({
@@ -87,7 +87,7 @@ const CaractersPage = () => {
 
 	const handleCloseModal = () => {
 		setIsModalOpen(false);
-		setSingleCaracter(Object);
+		setSingleCaracter(null);
 		handleChangeDocTitle('Rick and Morty');
 	};
 
