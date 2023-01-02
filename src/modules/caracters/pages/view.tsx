@@ -129,7 +129,7 @@ const CaractersView = ({
 				</div>
 				{isModalOpen && (
 					<div className="w-screen h-screen fixed left-0 right-0 bottom-0 z-[999] backdrop-blur-xl bg-[rgba(0,0,0,0.6)] flex justify-center items-center">
-						<div className="w-[40%] bg-white rounded-xl py-4">
+						<div className="lg:w-[40%] md:w-[80%] sm:w-[90%] w-[90%] bg-white rounded-xl py-4 ">
 							<div className="flex justify-end items-center">
 								<div className="mb-4" onClick={() => handleCloseModal()}>
 									<AiOutlineClose className="mr-4 cursor-pointer " size={22} />
