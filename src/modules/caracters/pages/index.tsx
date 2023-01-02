@@ -2,6 +2,8 @@ import { useEffect, useState } from 'react';
 import CaractersView from './view';
 import { Caracter } from '../../../types/Caracter';
 import { useAxiosFetch } from '../../../hooks/useAxiosFetch';
+import axios from 'axios';
+import { handleChangeDocTitle } from '../../../util/handleChangeDocTitle';
 
 const CaractersPage = () => {
 	const [caracters, setCaracters] = useState<Caracter[] | undefined>([]);
@@ -9,6 +11,8 @@ const CaractersPage = () => {
 		undefined
 	);
 	const [searchWord, setSearchWord] = useState('');
+	const [isModalOpen, setIsModalOpen] = useState(false);
+	const [singleCaracter, setSingleCaracter] = useState<Caracter>(Object);
 
 	const [data, error, isLoading, fetchData] = useAxiosFetch({
 		method: 'GET',
@@ -68,8 +72,17 @@ const CaractersPage = () => {
 		setFilteredData(undefined!);
 	};
 
-	const handleChangeTitle = (caracterName: string) => {
-		document.title = `Caracter: ${caracterName}`;
+	const handleChangeTitle = async ({ id, name }: Caracter) => {
+		handleChangeDocTitle(`Caracter: ${name}`);
+		const data = await axios.get(`/character/${id}`);
+		setSingleCaracter(data.data);
+		setIsModalOpen(true);
+	};
+
+	const handleCloseModal = () => {
+		setIsModalOpen(false);
+		setSingleCaracter(Object);
+		handleChangeDocTitle('Rick and Morty');
 	};
 
 	return (
@@ -82,6 +95,9 @@ const CaractersPage = () => {
 			isLoading={isLoading}
 			handleDeleteCaracter={handleDeleteCaracter}
 			handleChangeTitle={handleChangeTitle}
+			isModalOpen={isModalOpen}
+			singleCaracter={singleCaracter}
+			handleCloseModal={handleCloseModal}
 		/>
 	);
 };

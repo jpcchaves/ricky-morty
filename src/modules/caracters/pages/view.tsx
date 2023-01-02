@@ -13,7 +13,10 @@ interface CaractersViewI {
 	filteredData: Caracter[] | undefined;
 	isLoading: boolean;
 	handleDeleteCaracter: (id: number) => void;
-	handleChangeTitle: (caracterName: string) => void;
+	handleChangeTitle: (caracter: Caracter) => void;
+	isModalOpen: boolean;
+	singleCaracter: Caracter;
+	handleCloseModal: () => void;
 }
 
 const CaractersView = ({
@@ -25,6 +28,9 @@ const CaractersView = ({
 	isLoading,
 	handleDeleteCaracter,
 	handleChangeTitle,
+	isModalOpen,
+	singleCaracter,
+	handleCloseModal,
 }: CaractersViewI) => {
 	return (
 		<div className="w-full h-full pb-40">
@@ -79,7 +85,7 @@ const CaractersView = ({
 							<div
 								key={caracter.id}
 								className="w-[400px] bg-stone-100 flex flex-col justify-center border-solid border-2 border-gray-300 p-6 rounded-xl hover:scale-105 duration-200 ease-in shadow-lg shadow-gray-300 cursor-pointer"
-								onClick={() => handleChangeTitle(caracter.name)}
+								onClick={() => handleChangeTitle(caracter)}
 							>
 								<h2 className="text-2xl text-center mb-4">{caracter.name}</h2>
 								<div className="m-auto rounded-full mb-4">
@@ -119,6 +125,49 @@ const CaractersView = ({
 						))}
 					</div>
 				</div>
+				{isModalOpen && (
+					<div className="w-screen h-screen fixed left-0 right-0 bottom-0 z-[999] backdrop-blur-xl bg-[rgba(0,0,0,0.6)] flex justify-center items-center">
+						<div className="w-[40%] bg-white rounded-xl py-4">
+							<div className="flex justify-end items-center">
+								<div className="mb-4" onClick={() => handleCloseModal()}>
+									<AiOutlineClose className="mr-4 cursor-pointer " size={22} />
+								</div>
+							</div>
+							<div className="flex justify-center items-center flex-col">
+								<h2 className="text-2xl text-center mb-4">
+									{singleCaracter.name}
+								</h2>
+								<div className="m-auto rounded-full mb-4">
+									<img
+										className="object-cover rounded-full"
+										src={singleCaracter.image}
+										alt="foto do personagem"
+									/>
+								</div>
+								<p className="pt-2">
+									<strong>Situação: </strong>
+									{singleCaracter.status === 'Alive' && 'Vivo'}
+									{singleCaracter.status === 'Dead' && 'Morto'}
+									{singleCaracter.status === 'unknown' && 'Só deus sabe'}
+								</p>
+								<p className="pt-2">
+									<strong>Espécie:</strong>{' '}
+									{singleCaracter.species === 'Human' && 'Humano'}
+									{singleCaracter.species === 'Alien' && 'Alienígena'}
+								</p>
+								<p className="pt-2">
+									<strong>Gênero: </strong>
+									{singleCaracter.gender === 'Male' && 'Masculino'}
+									{singleCaracter.gender === 'Female' && 'Feminino'}
+								</p>
+								<p className="py-2">
+									<strong>Localização: </strong>
+									{singleCaracter.location.name}
+								</p>
+							</div>
+						</div>
+					</div>
+				)}
 				{filteredData?.length === 0 && (
 					<div className="w-screen">
 						<p className="text-center">
