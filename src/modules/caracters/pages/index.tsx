@@ -38,20 +38,6 @@ const CaractersPage = () => {
 		}
 	}, [error]);
 
-	const handleDeleteCaracter = (id: number) => {
-		if (
-			caracters &&
-			window.confirm('Você irá deletar um personagem. Deseja continuar? ') ===
-				true
-		) {
-			const filteredCaracters = caracters.filter((caracter) => {
-				return caracter.id !== id;
-			});
-
-			setCaracters(filteredCaracters);
-		}
-	};
-
 	const handleInputChange = (caracter: string) => {
 		if (caracter === '') {
 			setSearchWord('');
@@ -99,7 +85,6 @@ const CaractersPage = () => {
 			handleCleanupInput={handleCleanupInput}
 			handleInputChange={handleInputChange}
 			isLoading={isLoading}
-			handleDeleteCaracter={handleDeleteCaracter}
 			handleChangeTitle={handleChangeTitle}
 			isModalOpen={isModalOpen}
 			singleCaracter={singleCaracter}

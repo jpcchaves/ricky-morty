@@ -12,7 +12,6 @@ interface CaractersViewI {
 	handleCleanupInput: () => void;
 	filteredData: Caracter[] | undefined;
 	isLoading: boolean;
-	handleDeleteCaracter: (id: number) => void;
 	handleChangeTitle: (caracter: Caracter) => void;
 	isModalOpen: boolean;
 	singleCaracter: Caracter | null;
@@ -27,7 +26,6 @@ const CaractersView = ({
 	handleCleanupInput,
 	filteredData,
 	isLoading,
-	handleDeleteCaracter,
 	handleChangeTitle,
 	isModalOpen,
 	singleCaracter,
@@ -44,7 +42,7 @@ const CaractersView = ({
 				</div>
 
 				<div className="flex flex-row justify-center items-center gap-8 ">
-					<div className="sm:w-[90%] md:w-[70%] lg:w-[60%]">
+					<div className="sm:w-[90%] md:w-[70%] lg:w-[60%] w-[90%]">
 						<div className="flex space-x-4">
 							<div className="flex rounded-md overflow-hidden w-full">
 								<input
@@ -117,11 +115,8 @@ const CaractersView = ({
 									<strong>Localização: </strong>
 									{caracter.location.name}
 								</p>
-								<button
-									className="bg-red-600 py-2 px-4 rounded text-white w-[50%] m-auto mt-6 hover:bg-red-500 hover:text-black duration-150 ease-in"
-									onClick={() => handleDeleteCaracter(+caracter.id)}
-								>
-									Deletar
+								<button className="bg-blue-500 py-3 px-4 rounded text-white w-[100%] m-auto mt-6 hover:bg-blue-600 hover:text-black duration-150 ease-in">
+									Visualizar
 								</button>
 							</div>
 						))}
