@@ -78,7 +78,7 @@ const CaractersView = ({
 				<div className="flex w-full flex-col items-center justify-center">
 					{isLoading && <LoadingToast />}
 
-					<div className="flex m-auto flex-wrap flex-row gap-4 items-center justify-center">
+					<div className="flex m-auto flex-wrap flex-row gap-4 items-center justify-center  w-full">
 						{!isLoading && caracters?.length === 0 ? (
 							<p>Não há personagens para</p>
 						) : null}
@@ -92,8 +92,16 @@ const CaractersView = ({
 					</div>
 				</div>
 				{isModalOpen && (
-					<div className="w-screen h-screen min-w-full min-h-full fixed left-0 right-0 bottom-0 z-[999] backdrop-blur-xl bg-[rgba(0,0,0,0.6)] flex justify-center items-center">
-						<div className="lg:w-[40%] md:w-[80%] sm:w-[90%] w-[90%] bg-white rounded-xl py-4">
+					<>
+						<div
+							className="w-screen h-screen min-w-full min-h-full fixed left-0 right-0 bottom-0 z-10 backdrop-blur-xl bg-[rgba(0,0,0,0.6)] flex justify-center items-center"
+							style={{
+								zIndex: 1,
+							}}
+							onClick={() => handleCloseModal()}
+						/>
+
+						<div className="lg:w-[40%] md:w-[80%] sm:w-[90%] w-[90%] bg-white rounded-xl py-4 top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2 fixed z-20">
 							<div className="flex justify-end items-center">
 								<div className="mb-4" onClick={() => handleCloseModal()}>
 									<AiOutlineClose className="mr-4 cursor-pointer " size={22} />
@@ -138,7 +146,7 @@ const CaractersView = ({
 								</div>
 							)}
 						</div>
-					</div>
+					</>
 				)}
 				{filteredData?.length === 0 && (
 					<div className="w-screen">
