@@ -4,6 +4,7 @@ import LoadingToast from '../../../components/LoadingToast';
 import { Caracter } from '../../../types/Caracter';
 
 import logo from '../../../assets/logo.png';
+import CaracterCard from '../components/CaracterCard';
 
 interface CaractersViewI {
 	caracters: Caracter[] | undefined;
@@ -36,7 +37,7 @@ const CaractersView = ({
 		<div className="w-full h-full pb-40">
 			<div className="flex flex-col gap-2 min-w-full mb-8">
 				<div className="w-full flex justify-center items-center ">
-					<div className="w-[300px] py-6 ">
+					<div className="w-[300px] py-6 cursor-pointer">
 						<img src={logo} alt="logotipo do rick and morty" />
 					</div>
 				</div>
@@ -82,43 +83,11 @@ const CaractersView = ({
 							<p>Não há personagens para</p>
 						) : null}
 						{(filteredData! || caracters).map((caracter: Caracter) => (
-							<div
+							<CaracterCard
 								key={caracter.id}
-								className="lg:w-[30%] md:w-[40%] sm:w-[70%] bg-stone-100 flex flex-col justify-center border-solid border-2 border-gray-300 p-6 rounded-xl hover:scale-105 duration-200 ease-in shadow-lg shadow-gray-300 cursor-pointer"
-								onClick={() => handleOpenModal(caracter)}
-							>
-								<h2 className="text-2xl text-center mb-4">{caracter.name}</h2>
-								<div className="m-auto rounded-full mb-4">
-									<img
-										className="object-cover rounded-full"
-										src={caracter.image}
-										alt="foto do personagem"
-									/>
-								</div>
-								<p className="pt-2">
-									<strong>Situação: </strong>
-									{caracter.status === 'Alive' && 'Vivo'}
-									{caracter.status === 'Dead' && 'Morto'}
-									{caracter.status === 'unknown' && 'Só deus sabe'}
-								</p>
-								<p className="pt-2">
-									<strong>Espécie:</strong>{' '}
-									{caracter.species === 'Human' && 'Humano'}
-									{caracter.species === 'Alien' && 'Alienígena'}
-								</p>
-								<p className="pt-2">
-									<strong>Gênero: </strong>
-									{caracter.gender === 'Male' && 'Masculino'}
-									{caracter.gender === 'Female' && 'Feminino'}
-								</p>
-								<p className="py-2">
-									<strong>Localização: </strong>
-									{caracter.location.name}
-								</p>
-								<button className="bg-blue-500 py-3 px-4 rounded text-white w-[100%] m-auto mt-6 hover:bg-blue-600 hover:text-black duration-150 ease-in">
-									Visualizar
-								</button>
-							</div>
+								caracter={caracter}
+								handleOpenModal={handleOpenModal}
+							/>
 						))}
 					</div>
 				</div>
