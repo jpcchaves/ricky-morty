@@ -61,6 +61,9 @@ const CaractersPage = () => {
 
 	const handleChangeTitle = async ({ id, name }: Caracter) => {
 		handleChangeDocTitle(`Caracter: ${name}`);
+		document.addEventListener('scroll', (e) => {
+			e.preventDefault();
+		});
 		try {
 			setIsModalOpen(true);
 			const data = await axios.get(`/character/${id}`);

@@ -34,9 +34,9 @@ const CaractersView = ({
 }: CaractersViewI) => {
 	return (
 		<div className="w-full h-full pb-40">
-			<div className="flex flex-col gap-2 w-full mb-8">
-				<div className="w-full flex justify-center items-center">
-					<div className="w-[300px] py-6">
+			<div className="flex flex-col gap-2 min-w-full mb-8">
+				<div className="w-full flex justify-center items-center ">
+					<div className="w-[300px] py-6 ">
 						<img src={logo} alt="logotipo do rick and morty" />
 					</div>
 				</div>
@@ -74,17 +74,17 @@ const CaractersView = ({
 				</div>
 			</div>
 			<div className="flex w-full m-auto items-center justify-center gap-2 flex-wrap">
-				<div className="flex w-[98%] flex-col items-center justify-center">
+				<div className="flex w-full flex-col items-center justify-center">
 					{isLoading && <LoadingToast />}
 
-					<div className="flex m-auto flex-wrap flex-row gap-8 items-center justify-center">
+					<div className="flex m-auto flex-wrap flex-row gap-4 items-center justify-center">
 						{!isLoading && caracters?.length === 0 ? (
 							<p>Não há personagens para</p>
 						) : null}
 						{(filteredData! || caracters).map((caracter: Caracter) => (
 							<div
 								key={caracter.id}
-								className="w-[400px] bg-stone-100 flex flex-col justify-center border-solid border-2 border-gray-300 p-6 rounded-xl hover:scale-105 duration-200 ease-in shadow-lg shadow-gray-300 cursor-pointer"
+								className="lg:w-[30%] md:w-[40%] sm:w-[70%] bg-stone-100 flex flex-col justify-center border-solid border-2 border-gray-300 p-6 rounded-xl hover:scale-105 duration-200 ease-in shadow-lg shadow-gray-300 cursor-pointer"
 								onClick={() => handleChangeTitle(caracter)}
 							>
 								<h2 className="text-2xl text-center mb-4">{caracter.name}</h2>
@@ -123,8 +123,8 @@ const CaractersView = ({
 					</div>
 				</div>
 				{isModalOpen && (
-					<div className="w-screen h-screen fixed left-0 right-0 bottom-0 z-[999] backdrop-blur-xl bg-[rgba(0,0,0,0.6)] flex justify-center items-center">
-						<div className="lg:w-[40%] md:w-[80%] sm:w-[90%] w-[90%] bg-white rounded-xl py-4 ">
+					<div className="w-screen h-screen min-w-full min-h-full fixed left-0 right-0 bottom-0 z-[999] backdrop-blur-xl bg-[rgba(0,0,0,0.6)] flex justify-center items-center">
+						<div className="lg:w-[40%] md:w-[80%] sm:w-[90%] w-[90%] bg-white rounded-xl py-4">
 							<div className="flex justify-end items-center">
 								<div className="mb-4" onClick={() => handleCloseModal()}>
 									<AiOutlineClose className="mr-4 cursor-pointer " size={22} />
