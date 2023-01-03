@@ -5,6 +5,9 @@ import { useAxiosFetch } from '../../../hooks/useAxiosFetch';
 import axios from 'axios';
 import { handleChangeDocTitle } from '../../../util/handleChangeDocTitle';
 
+import { disableBodyScroll, enableBodyScroll } from 'body-scroll-lock';
+import { KEYS_CONSTANTS } from '../../../constant/KeysContants';
+
 const CaractersPage = () => {
 	const [caracters, setCaracters] = useState<Caracter[] | undefined>([]);
 	const [filteredData, setFilteredData] = useState<Caracter[] | undefined>(
@@ -38,6 +41,18 @@ const CaractersPage = () => {
 		}
 	}, [error]);
 
+	const handleEscapeKeydown = (e: { key: string }) => {
+		if (e.key === KEYS_CONSTANTS.ESCAPE_KEY) {
+			handleCloseModal();
+		}
+	};
+
+	useEffect(() => {
+		document.addEventListener('keydown', handleEscapeKeydown);
+
+		return () => document.removeEventListener('keydown', handleEscapeKeydown);
+	}, []);
+
 	const handleInputChange = (caracter: string) => {
 		if (caracter === '') {
 			setSearchWord('');
@@ -59,11 +74,10 @@ const CaractersPage = () => {
 		setFilteredData(undefined!);
 	};
 
-	const handleChangeTitle = async ({ id, name }: Caracter) => {
+	const handleOpenModal = async ({ id, name }: Caracter) => {
 		handleChangeDocTitle(`Caracter: ${name}`);
-		document.addEventListener('scroll', (e) => {
-			e.preventDefault();
-		});
+		disableBodyScroll(document.body);
+
 		try {
 			setIsModalOpen(true);
 			const data = await axios.get(`/character/${id}`);
@@ -77,6 +91,7 @@ const CaractersPage = () => {
 	const handleCloseModal = () => {
 		setIsModalOpen(false);
 		setSingleCaracter(null);
+		enableBodyScroll(document.body);
 		handleChangeDocTitle('Rick and Morty');
 	};
 
@@ -88,7 +103,7 @@ const CaractersPage = () => {
 			handleCleanupInput={handleCleanupInput}
 			handleInputChange={handleInputChange}
 			isLoading={isLoading}
-			handleChangeTitle={handleChangeTitle}
+			handleOpenModal={handleOpenModal}
 			isModalOpen={isModalOpen}
 			singleCaracter={singleCaracter}
 			handleCloseModal={handleCloseModal}

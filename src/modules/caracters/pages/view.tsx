@@ -12,7 +12,7 @@ interface CaractersViewI {
 	handleCleanupInput: () => void;
 	filteredData: Caracter[] | undefined;
 	isLoading: boolean;
-	handleChangeTitle: (caracter: Caracter) => void;
+	handleOpenModal: (caracter: Caracter) => void;
 	isModalOpen: boolean;
 	singleCaracter: Caracter | null;
 	handleCloseModal: () => void;
@@ -26,7 +26,7 @@ const CaractersView = ({
 	handleCleanupInput,
 	filteredData,
 	isLoading,
-	handleChangeTitle,
+	handleOpenModal,
 	isModalOpen,
 	singleCaracter,
 	handleCloseModal,
@@ -85,7 +85,7 @@ const CaractersView = ({
 							<div
 								key={caracter.id}
 								className="lg:w-[30%] md:w-[40%] sm:w-[70%] bg-stone-100 flex flex-col justify-center border-solid border-2 border-gray-300 p-6 rounded-xl hover:scale-105 duration-200 ease-in shadow-lg shadow-gray-300 cursor-pointer"
-								onClick={() => handleChangeTitle(caracter)}
+								onClick={() => handleOpenModal(caracter)}
 							>
 								<h2 className="text-2xl text-center mb-4">{caracter.name}</h2>
 								<div className="m-auto rounded-full mb-4">
