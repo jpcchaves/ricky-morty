@@ -3,8 +3,12 @@ import { AiOutlineClose } from 'react-icons/ai';
 import LoadingToast from '../../../components/LoadingToast';
 import { Caracter } from '../../../types/Caracter';
 
+import Lottie from 'lottie-react';
+
 import logo from '../../../assets/logo.png';
 import CaracterCard from '../components/CaracterCard';
+
+import loadingAnimation from '../../../assets/animations/loadingAnimation.json';
 
 interface CaractersViewI {
 	caracters: Caracter[] | undefined;
@@ -18,6 +22,7 @@ interface CaractersViewI {
 	singleCaracter: Caracter | null;
 	handleCloseModal: () => void;
 	loadingCaracter: boolean;
+	showAnimation: boolean;
 }
 
 const CaractersView = ({
@@ -32,7 +37,31 @@ const CaractersView = ({
 	singleCaracter,
 	handleCloseModal,
 	loadingCaracter,
+	showAnimation,
 }: CaractersViewI) => {
+	const screenWidth = document.documentElement.clientWidth;
+
+	if (showAnimation) {
+		return (
+			<div className="w-screen max-w-full">
+				<div className="w-full flex justify-center items-center ">
+					<div className="w-[300px] py-6 cursor-pointer">
+						<img src={logo} alt="logotipo do rick and morty" />
+					</div>
+				</div>
+				<div className="w-full h-full flex items-center justify-center">
+					<div
+						className={
+							screenWidth < 600 ? 'w-[250px] h-[250px]' : 'w-[400px] h-[400px]'
+						}
+					>
+						<Lottie animationData={loadingAnimation} loop={true} />
+					</div>
+				</div>
+			</div>
+		);
+	}
+
 	return (
 		<div className="w-full h-full pb-40">
 			<div className="flex flex-col gap-2 min-w-full mb-8">

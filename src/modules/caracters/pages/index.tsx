@@ -18,6 +18,12 @@ const CaractersPage = () => {
 	const [singleCaracter, setSingleCaracter] = useState<Caracter | null>(null);
 	const [loadingCaracter, setLoadingCaracter] = useState(true);
 
+	const [showAnimation, setShowAnimation] = useState(true);
+
+	setTimeout(() => {
+		setShowAnimation(false);
+	}, 5000);
+
 	const [data, error, isLoading, fetchData] = useAxiosFetch({
 		method: 'GET',
 		url: '/character',
@@ -108,6 +114,7 @@ const CaractersPage = () => {
 			singleCaracter={singleCaracter}
 			handleCloseModal={handleCloseModal}
 			loadingCaracter={loadingCaracter}
+			showAnimation={showAnimation}
 		/>
 	);
 };
