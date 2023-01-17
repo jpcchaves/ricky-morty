@@ -45,7 +45,7 @@ const CaractersView = ({
 				<div className="flex flex-row justify-center items-center gap-8 ">
 					<div className="sm:w-[90%] md:w-[70%] lg:w-[60%] w-[90%]">
 						<div className="flex space-x-4">
-							<div className="flex rounded-md overflow-hidden w-full">
+							<div className="flex rounded-md overflow-hidden w-full border border-blue-100 focus-within:border-blue-300">
 								<input
 									type="text"
 									name="caracter"
